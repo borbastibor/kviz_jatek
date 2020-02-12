@@ -1,0 +1,21 @@
+﻿<Window x:Class="kviz_jatek.TopScoresWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:kviz_jatek"
+        mc:Ignorable="d"
+        Title="Kvíz játék - Legjobb eredmények" Height="450" Width="800" WindowStyle="None" ResizeMode="NoResize" MouseDown="Window_MouseDown" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Label Content="Legjobb eredmények" VerticalAlignment="Top" FontSize="20" FontWeight="ExtraBold" HorizontalContentAlignment="Center" Margin="0,5,0,0" HorizontalAlignment="Center"/>
+        <DataGrid HorizontalAlignment="Center" Height="100" Margin="0,70,0,0" VerticalAlignment="Top" Width="200">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}"/>
+                <DataGridTextColumn Binding="{x:Null}" CanUserResize="False" ClipboardContentBinding="{x:Null}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Content="Vissza a menübe" HorizontalAlignment="Right" Margin="0,0,20,20" VerticalAlignment="Bottom" FontSize="14" FontWeight="Bold" Padding="5" Click="OnClick_BackToMenu"/>
+        <Button Content="Eredmények törlése" HorizontalAlignment="Left" Margin="20,0,0,20" VerticalAlignment="Bottom" Padding="5" FontSize="14" FontWeight="Bold"/>
+
+    </Grid>
+</Window>
