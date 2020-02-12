@@ -27,8 +27,8 @@ namespace kviz_jatek
             this.settings = settings.Value;
             context = dataContext;
 
-            // TopScore tábla feltöltése a initial_questions.csv-ből nyert adatokkal
-            if (context.TopScores.ToList().Count() == 0)
+            // A QuizContents tábla feltöltése a initial_questions.csv-ből nyert kezdő adatokkal
+            if (context.QuizContents.ToList().Count() == 0)
             {
                 using (TextFieldParser parser = new TextFieldParser("initial_questions.csv"))
                 {
@@ -50,8 +50,8 @@ namespace kviz_jatek
                 }
             }
 
-            // TopScore tábla feltöltése a initial_topscores.csv-ből nyert adatokkal
-            if (context.QuizContents.ToList().Count() == 0)
+            // A TopScores tábla feltöltése a initial_topscores.csv-ből nyert kezdő adatokkal
+            if (context.TopScores.ToList().Count() == 0)
             {
                 using (TextFieldParser parser = new TextFieldParser("initial_topscores.csv"))
                 {

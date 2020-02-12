@@ -44,7 +44,7 @@ namespace kviz_jatek
             services.Configure<AppSettings>(Configuration.GetSection(nameof(AppSettings)));
             services.AddScoped<ISampleService, SampleService>();
             services.AddDbContext<DatabaseContext>(options => options.UseSqlite(
-                    Configuration.GetConnectionString("SqlConnection")));
+                    Configuration.GetConnectionString("Sqlite")));
 
             services.AddTransient(typeof(MainWindow));
         }
