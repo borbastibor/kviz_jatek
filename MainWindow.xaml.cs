@@ -72,14 +72,17 @@ namespace kviz_jatek
             }
 
             // A többi ablak létrehozása
-            topscoreswindow = new TopScoresWindow(this);
-            dbmanagerwindow = new DbManagerWindow(this);
+            topscoreswindow = new TopScoresWindow(this, context);
+            dbmanagerwindow = new DbManagerWindow(this, context);
+            quizwindow = new QuizWindow(this, context);
         }
 
         // A kvíz játék ablakának a megjelenítése
         private void OnClick_StartQuiz(object sender, RoutedEventArgs e)
         {
-
+            Hide();
+            Thread.Sleep(150);
+            quizwindow.Show();
         }
 
         // Az adatbáziskezelő ablak megjelenítése
@@ -109,6 +112,7 @@ namespace kviz_jatek
         {
             topscoreswindow.Close();
             dbmanagerwindow.Close();
+            quizwindow.Close();
         }
     }
 }

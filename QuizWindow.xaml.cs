@@ -6,17 +6,18 @@ using System.Windows.Input;
 namespace kviz_jatek
 {
     /// <summary>
-    /// Interaction logic for DbManagerWindow.xaml
+    /// Interaction logic for QuizWindow.xaml
     /// </summary>
-    public partial class DbManagerWindow : Window
+    public partial class QuizWindow : Window
     {
         private readonly Window mainwindow;
         private readonly DatabaseContext context;
 
-        public DbManagerWindow(Window mwindow, DatabaseContext datacontext)
+        public QuizWindow(Window mwindow, DatabaseContext datacontext)
         {
             InitializeComponent();
             mainwindow = mwindow;
+            context = datacontext;
         }
 
         // Vissza a főmenű ablakába

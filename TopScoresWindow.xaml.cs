@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using kviz_jatek.Data;
+using System.Threading;
 using System.Windows;
 using System.Windows.Input;
 
@@ -10,11 +11,13 @@ namespace kviz_jatek
     public partial class TopScoresWindow : Window
     {
         private Window mainwindow;
+        private readonly DatabaseContext context;
 
-        public TopScoresWindow(Window mwindow)
+        public TopScoresWindow(Window mwindow, DatabaseContext datacontext)
         {
             InitializeComponent();
             mainwindow = mwindow;
+            context = datacontext;
         }
 
         // Vissza a főmenű ablakába
