@@ -5,13 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:kviz_jatek"
         mc:Ignorable="d"
-        Title="Kvíz játék" Height="350" Width="350" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Closing="OnClosing">
+        Title="Kvíz játék" Height="350" Width="350" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Closing="OnClosing" WindowStyle="None" MouseDown="Window_MouseDown">
     <Grid Height="321" Width="339">
         <Button Content="Kvíz indítása" Margin="0,70,0,0" FontWeight="Bold" FontSize="16" MinWidth="200" MinHeight="35" HorizontalAlignment="Center" VerticalAlignment="Top" Click="OnClick_StartQuiz"/>
         <Button Content="Kérdés adatbázis" Margin="0,120,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" Height="35" HorizontalAlignment="Center" MinWidth="200" MinHeight="35" Click="OnClick_Dbmanager"/>
         <Button Content="Legjobb eredmények" HorizontalAlignment="Center" Margin="0,170,0,0" VerticalAlignment="Top" Width="185" FontSize="16" FontWeight="Bold" Height="35" MinWidth="200" MinHeight="35" Click="OnClick_TopScores"/>
         <Button Content="Kilépés" HorizontalAlignment="Center" Margin="0,220,0,0" VerticalAlignment="Top" Width="184" FontSize="16" FontWeight="Bold" Height="35" MinWidth="200" MinHeight="35" Click="OnClick_Exit"/>
-        <Label Content="Menü" HorizontalAlignment="Center" Margin="0,15,0,0" VerticalAlignment="Top" Width="155" FontSize="20" FontWeight="ExtraBold" HorizontalContentAlignment="Center"/>
+        <Label Content="Kvíz játék menü" HorizontalAlignment="Center" Margin="0,5,0,0" VerticalAlignment="Top" FontSize="20" FontWeight="ExtraBold" HorizontalContentAlignment="Center"/>
 
     </Grid>
 </Window>

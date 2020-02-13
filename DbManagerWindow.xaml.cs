@@ -32,5 +32,25 @@ namespace kviz_jatek
         {
             DragMove();
         }
+
+        // Új rekord létrehozása
+        private void OnClick_NewRecord(object sender, RoutedEventArgs e)
+        {
+            CreateRecordDialogBox dlg = new CreateRecordDialogBox();
+            dlg.Owner = this;
+            dlg.ShowDialog();
+        }
+
+        // Rekord szerkesztése
+        private void OnClick_EditRecord(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        // Rekord törlése
+        private void OnClick_DeleteRecord(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

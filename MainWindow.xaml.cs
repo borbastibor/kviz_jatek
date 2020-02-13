@@ -5,6 +5,7 @@ using Microsoft.VisualBasic.FileIO;
 using System.Linq;
 using System.Threading;
 using System.Windows;
+using System.Windows.Input;
 
 namespace kviz_jatek
 {
@@ -27,7 +28,8 @@ namespace kviz_jatek
             this.settings = settings.Value;
             context = dataContext;
 
-            // A QuizContents tábla feltöltése a initial_questions.csv-ből nyert kezdő adatokkal
+            // Tesztadatokkal történő feltöltés
+            // A QuizContents tábla feltöltése a initial_questions.csv-ből nyert kezdő adatokkal, ha táblában 0 rekord van
             if (context.QuizContents.ToList().Count() == 0)
             {
                 using (TextFieldParser parser = new TextFieldParser("initial_questions.csv"))
@@ -50,7 +52,8 @@ namespace kviz_jatek
                 }
             }
 
-            // A TopScores tábla feltöltése a initial_topscores.csv-ből nyert kezdő adatokkal
+            // Tesztadatokkal történő feltöltés
+            // A TopScores tábla feltöltése a initial_topscores.csv-ből nyert kezdő adatokkal, ha a táblában 0 rekord van
             if (context.TopScores.ToList().Count() == 0)
             {
                 using (TextFieldParser parser = new TextFieldParser("initial_topscores.csv"))
@@ -104,7 +107,26 @@ namespace kviz_jatek
         // Kilépés gombra kattintás
         private void OnClick_Exit(object sender, RoutedEventArgs e)
         {
-            Close();
+            string messageBoxText = "Biztos, hogy kilép?";
+            string caption = "Kilépés a programból";
+            MessageBoxButton button = MessageBoxButton.YesNo;
+            MessageBoxImage icon = MessageBoxImage.Question;
+            MessageBoxResult result = MessageBox.Show(messageBoxText, caption, button, icon);
+            switch (result)
+            {
+                case MessageBoxResult.Yes:
+                    Close();
+                    break;
+                case MessageBoxResult.No:
+                    break;
+            }
+            
+        }
+
+        // Ablak mozgatása lenyomott egérgombbal
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            DragMove();
         }
 
         // A bezárás gombra kattintáskor zárja be a többi létrehozott ablakot 
@@ -114,5 +136,6 @@ namespace kviz_jatek
             dbmanagerwindow.Close();
             quizwindow.Close();
         }
+
     }
 }

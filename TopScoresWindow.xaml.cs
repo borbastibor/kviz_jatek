@@ -1,4 +1,5 @@
 ﻿using kviz_jatek.Data;
+using Microsoft.EntityFrameworkCore;
 using System.Threading;
 using System.Windows;
 using System.Windows.Input;
@@ -32,6 +33,23 @@ namespace kviz_jatek
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
             DragMove();
+        }
+
+        private void OnClick_DeleteTopScores(object sender, RoutedEventArgs e)
+        {
+            string messageBoxText = "Biztosan törli az eredményeket?";
+            string caption = "Legjobb eredmények törlése";
+            MessageBoxButton button = MessageBoxButton.YesNo;
+            MessageBoxImage icon = MessageBoxImage.Question;
+            MessageBoxResult result = MessageBox.Show(messageBoxText, caption, button, icon);
+            switch (result)
+            {
+                case MessageBoxResult.Yes:
+                    context.Database.ExecuteSqlRaw("DELETE FROM TopScores");
+                    break;
+                case MessageBoxResult.No:
+                    break;
+            }
         }
     }
 }

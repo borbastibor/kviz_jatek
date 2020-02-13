@@ -15,7 +15,7 @@
             </DataGrid.Columns>
         </DataGrid>
         <Button Content="Vissza a menübe" HorizontalAlignment="Right" Margin="0,0,20,20" VerticalAlignment="Bottom" FontSize="14" FontWeight="Bold" Padding="5" Click="OnClick_BackToMenu"/>
-        <Button Content="Eredmények törlése" HorizontalAlignment="Left" Margin="20,0,0,20" VerticalAlignment="Bottom" Padding="5" FontSize="14" FontWeight="Bold"/>
+        <Button Content="Eredmények törlése" HorizontalAlignment="Left" Margin="20,0,0,20" VerticalAlignment="Bottom" Padding="5" FontSize="14" FontWeight="Bold" Click="OnClick_DeleteTopScores"/>
 
     </Grid>
 </Window>
