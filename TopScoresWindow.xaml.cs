@@ -1,5 +1,8 @@
 ﻿using kviz_jatek.Data;
+using kviz_jatek.Model;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Windows;
 using System.Windows.Input;
@@ -35,6 +38,7 @@ namespace kviz_jatek
             DragMove();
         }
 
+        // Legjobb eredmények törlése
         private void OnClick_DeleteTopScores(object sender, RoutedEventArgs e)
         {
             string messageBoxText = "Biztosan törli az eredményeket?";
@@ -50,6 +54,14 @@ namespace kviz_jatek
                 case MessageBoxResult.No:
                     break;
             }
+            List<TopScore> topscorelist = context.TopScores.ToList();
+            TopScoreListView.ItemsSource = topscorelist;
+        }
+
+        private void OnActivated(object sender, System.EventArgs e)
+        {
+            List<TopScore> topscorelist = context.TopScores.ToList();
+            TopScoreListView.ItemsSource = topscorelist;
         }
     }
 }

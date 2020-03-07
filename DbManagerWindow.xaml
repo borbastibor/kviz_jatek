@@ -6,11 +6,11 @@
         xmlns:local="clr-namespace:kviz_jatek"
         xmlns:Model="clr-namespace:kviz_jatek.Model" x:Class="kviz_jatek.DbManagerWindow"
         mc:Ignorable="d"
-        Title="Kvíz játék - Kérdés adatbázis" Height="450" Width="800" WindowStyle="None" MouseDown="Window_MouseDown" WindowStartupLocation="CenterScreen">
+        Title="Kvíz játék - Kérdés adatbázis" Height="450" Width="800" WindowStyle="None" MouseDown="Window_MouseDown" WindowStartupLocation="CenterScreen" Activated="OnActivated">
     <Grid>
         <Button Content="Vissza a menübe" HorizontalAlignment="Right" Margin="0,0,20,20" VerticalAlignment="Bottom" FontSize="14" FontWeight="Bold" Padding="5" Click="OnClick_BackToMenu"/>
         <Label Content="Kérdés adatbázis" VerticalAlignment="Top" FontSize="20" FontWeight="ExtraBold" HorizontalContentAlignment="Center" Margin="292,5,284,0" HorizontalAlignment="Center"/>
-        <ListView Margin="20,50,20,75" HorizontalAlignment="Stretch">
+        <ListView x:Name="QuestionListView" Margin="20,50,20,75" HorizontalAlignment="Stretch">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>

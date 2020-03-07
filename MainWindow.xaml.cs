@@ -115,6 +115,7 @@ namespace kviz_jatek
             switch (result)
             {
                 case MessageBoxResult.Yes:
+                    CloseAllWindow();
                     Close();
                     break;
                 case MessageBoxResult.No:
@@ -129,8 +130,8 @@ namespace kviz_jatek
             DragMove();
         }
 
-        // A bezárás gombra kattintáskor zárja be a többi létrehozott ablakot 
-        private void OnClosing(object sender, System.ComponentModel.CancelEventArgs e)
+        // Öszes ablak bezárása
+        private void CloseAllWindow()
         {
             topscoreswindow.Close();
             dbmanagerwindow.Close();

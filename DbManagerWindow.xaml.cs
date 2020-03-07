@@ -1,4 +1,7 @@
 ﻿using kviz_jatek.Data;
+using kviz_jatek.Model;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Windows;
 using System.Windows.Input;
@@ -17,6 +20,7 @@ namespace kviz_jatek
         {
             InitializeComponent();
             mainwindow = mwindow;
+            context = datacontext;
         }
 
         // Vissza a főmenű ablakába
@@ -51,6 +55,12 @@ namespace kviz_jatek
         private void OnClick_DeleteRecord(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void OnActivated(object sender, System.EventArgs e)
+        {
+            List<QuizContent> questionlist = context.QuizContents.ToList();
+            QuestionListView.ItemsSource = questionlist;
         }
     }
 }
