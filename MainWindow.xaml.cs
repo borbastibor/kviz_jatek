@@ -3,6 +3,7 @@ using kviz_jatek.Model;
 using Microsoft.Extensions.Options;
 using Microsoft.VisualBasic.FileIO;
 using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Windows;
 using System.Windows.Input;
@@ -32,7 +33,7 @@ namespace kviz_jatek
             // A QuizContents tábla feltöltése a initial_questions.csv-ből nyert kezdő adatokkal, ha táblában 0 rekord van
             if (context.QuizContents.ToList().Count() == 0)
             {
-                using (TextFieldParser parser = new TextFieldParser("initial_questions.csv"))
+                using (TextFieldParser parser = new TextFieldParser("initial_questions.csv", Encoding.UTF8))
                 {
                     parser.TextFieldType = FieldType.Delimited;
                     parser.SetDelimiters(";");
@@ -56,7 +57,7 @@ namespace kviz_jatek
             // A TopScores tábla feltöltése a initial_topscores.csv-ből nyert kezdő adatokkal, ha a táblában 0 rekord van
             if (context.TopScores.ToList().Count() == 0)
             {
-                using (TextFieldParser parser = new TextFieldParser("initial_topscores.csv"))
+                using (TextFieldParser parser = new TextFieldParser("initial_topscores.csv", Encoding.UTF8))
                 {
                     parser.TextFieldType = FieldType.Delimited;
                     parser.SetDelimiters(";");

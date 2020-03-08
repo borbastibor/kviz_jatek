@@ -13,7 +13,10 @@
         <ListView x:Name="QuestionListView" Margin="20,50,20,75" HorizontalAlignment="Stretch">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn/>
+                    <GridViewColumn Header="Kérdés" DisplayMemberBinding="{Binding Question}" />
+                    <GridViewColumn Header="Jó válasz" DisplayMemberBinding="{Binding GoodAnswer}" />
+                    <GridViewColumn Header="Rossz válasz1" DisplayMemberBinding="{Binding WrongAnswer1}" />
+                    <GridViewColumn Header="Rossz válasz2" DisplayMemberBinding="{Binding WrongAnswer2}" />
                 </GridView>
             </ListView.View>
         </ListView>
