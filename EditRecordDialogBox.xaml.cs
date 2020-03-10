@@ -10,13 +10,17 @@ namespace kviz_jatek
     public partial class EditRecordDialogBox : Window
     {
         private readonly DatabaseContext context;
-        private QuizContent editeditem;
+        private readonly QuizContent editeditem;
 
         public EditRecordDialogBox(DatabaseContext dbcontext, QuizContent selecteditem)
         {
             InitializeComponent();
-            this.context = dbcontext;
-            this.editeditem = selecteditem;
+            context = dbcontext;
+            editeditem = selecteditem;
+            questionTextBox.Text = selecteditem.Question;
+            goodAnswerTextBox.Text = selecteditem.GoodAnswer;
+            wrongAnswer1TextBox.Text = selecteditem.WrongAnswer1;
+            wrongAnswer2TextBox.Text = selecteditem.WrongAnswer2;
         }
 
         // Beírt adatok validációja, meglévő rekord frissítése
@@ -26,38 +30,39 @@ namespace kviz_jatek
             MessageBoxButton button = MessageBoxButton.OK;
             MessageBoxImage icon = MessageBoxImage.Error;
 
-            if (this.questionTextBox.Text == "")
+            if (questionTextBox.Text == "")
             {
                 string messageBoxText = "Nem adott meg kérdést!";
                 MessageBox.Show(messageBoxText, caption, button, icon);
                 return;
             }
-            if (this.goodAnswerTextBox.Text == "")
+            if (goodAnswerTextBox.Text == "")
             {
                 string messageBoxText = "Nem adott meg helyes választ!";
                 MessageBox.Show(messageBoxText, caption, button, icon);
                 return;
             }
-            if (this.wrongAnswer1TextBox.Text == "")
+            if (wrongAnswer1TextBox.Text == "")
             {
                 string messageBoxText = "Nem adott meg egy rossz választ!";
                 MessageBox.Show(messageBoxText, caption, button, icon);
                 return;
             }
-            if (this.wrongAnswer2TextBox.Text == "")
+            if (wrongAnswer2TextBox.Text == "")
             {
                 string messageBoxText = "Nem adott meg egy rossz választ!";
                 MessageBox.Show(messageBoxText, caption, button, icon);
                 return;
             }
-            var recordtoupdate = this.context.QuizContents.Find(this.editeditem.Id);
+            QuizContent recordtoupdate = context.QuizContents.Find(editeditem.Id);
             if (recordtoupdate != null)
             {
                 recordtoupdate.Question = questionTextBox.Text;
                 recordtoupdate.GoodAnswer = goodAnswerTextBox.Text;
                 recordtoupdate.WrongAnswer1 = wrongAnswer1TextBox.Text;
                 recordtoupdate.WrongAnswer2 = wrongAnswer2TextBox.Text;
-                this.context.SaveChanges();
+                context.SaveChanges();
+                Close();
             } else
             {
                 string messageBoxText = "Nem sikerült menteni a változásokat!";

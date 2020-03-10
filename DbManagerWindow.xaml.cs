@@ -63,12 +63,32 @@ namespace kviz_jatek
         {
             if (QuestionListView.SelectedItem != null)
             {
-
+                string messageBoxText = "Biztos, hogy törli a kijelölt rekordot?";
+                string caption = "Rekord törlése";
+                MessageBoxButton button = MessageBoxButton.YesNo;
+                MessageBoxImage icon = MessageBoxImage.Question;
+                MessageBoxResult result = MessageBox.Show(messageBoxText, caption, button, icon);
+                switch (result)
+                {
+                    case MessageBoxResult.Yes:
+                        context.QuizContents.Remove((QuizContent)QuestionListView.SelectedItem);
+                        context.SaveChanges();
+                        ReloadListViewContent();
+                        break;
+                    case MessageBoxResult.No:
+                        break;
+                }
             }
         }
 
         // Az ablak aktivizálásra megjeleníti a kérdések listáját
         private void OnActivated(object sender, System.EventArgs e)
+        {
+            ReloadListViewContent();
+        }
+
+        // Belső függvény, ami újratölti az listanézet tartalmát
+        private void ReloadListViewContent()
         {
             List<QuizContent> questionlist = context.QuizContents.ToList();
             QuestionListView.ItemsSource = questionlist;

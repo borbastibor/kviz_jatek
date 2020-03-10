@@ -14,7 +14,7 @@ namespace kviz_jatek
         public CreateRecordDialogBox(DatabaseContext dbcontext)
         {
             InitializeComponent();
-            this.context = dbcontext;
+            context = dbcontext;
         }
 
         // Beírt adatok validációja, új rekord létrehozása
@@ -24,25 +24,25 @@ namespace kviz_jatek
             MessageBoxButton button = MessageBoxButton.OK;
             MessageBoxImage icon = MessageBoxImage.Error;
             
-            if (this.questionTextBox.Text == "")
+            if (questionTextBox.Text == "")
             {
                 string messageBoxText = "Nem adott meg kérdést!";
                 MessageBox.Show(messageBoxText, caption, button, icon);
                 return;
             }
-            if (this.goodAnswerTextBox.Text == "")
+            if (goodAnswerTextBox.Text == "")
             {
                 string messageBoxText = "Nem adott meg helyes választ!";
                 MessageBox.Show(messageBoxText, caption, button, icon);
                 return;
             }
-            if (this.wrongAnswer1TextBox.Text == "")
+            if (wrongAnswer1TextBox.Text == "")
             {
                 string messageBoxText = "Nem adott meg egy rossz választ!";
                 MessageBox.Show(messageBoxText, caption, button, icon);
                 return;
             }
-            if (this.wrongAnswer2TextBox.Text == "")
+            if (wrongAnswer2TextBox.Text == "")
             {
                 string messageBoxText = "Nem adott meg egy rossz választ!";
                 MessageBox.Show(messageBoxText, caption, button, icon);
@@ -50,13 +50,14 @@ namespace kviz_jatek
             }
             QuizContent ujrekord = new QuizContent
             {
-                Question = this.questionTextBox.Text,
-                GoodAnswer = this.goodAnswerTextBox.Text,
-                WrongAnswer1 = this.wrongAnswer1TextBox.Text,
-                WrongAnswer2 = this.wrongAnswer2TextBox.Text
+                Question = questionTextBox.Text,
+                GoodAnswer = goodAnswerTextBox.Text,
+                WrongAnswer1 = wrongAnswer1TextBox.Text,
+                WrongAnswer2 = wrongAnswer2TextBox.Text
             };
-            this.context.QuizContents.Add(ujrekord);
-            this.context.SaveChanges();
+            context.QuizContents.Add(ujrekord);
+            context.SaveChanges();
+            this.Close();
         }
     }
 }
