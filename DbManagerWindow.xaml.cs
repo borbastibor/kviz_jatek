@@ -40,23 +40,34 @@ namespace kviz_jatek
         // Új rekord létrehozása
         private void OnClick_NewRecord(object sender, RoutedEventArgs e)
         {
-            CreateRecordDialogBox dlg = new CreateRecordDialogBox();
+            CreateRecordDialogBox dlg = new CreateRecordDialogBox(context);
             dlg.Owner = this;
             dlg.ShowDialog();
+            dlg.Close();
         }
 
         // Rekord szerkesztése
         private void OnClick_EditRecord(object sender, RoutedEventArgs e)
         {
-
+            if (QuestionListView.SelectedItem != null)
+            {
+                EditRecordDialogBox dlg = new EditRecordDialogBox(context, (QuizContent)QuestionListView.SelectedItem);
+                dlg.Owner = this;
+                dlg.ShowDialog();
+                dlg.Close();
+            } 
         }
 
         // Rekord törlése
         private void OnClick_DeleteRecord(object sender, RoutedEventArgs e)
         {
+            if (QuestionListView.SelectedItem != null)
+            {
 
+            }
         }
 
+        // Az ablak aktivizálásra megjeleníti a kérdések listáját
         private void OnActivated(object sender, System.EventArgs e)
         {
             List<QuizContent> questionlist = context.QuizContents.ToList();

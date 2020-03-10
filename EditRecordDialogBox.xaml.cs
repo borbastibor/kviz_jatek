@@ -7,23 +7,25 @@ namespace kviz_jatek
     /// <summary>
     /// Interaction logic for CreateRecordDialogBox.xaml
     /// </summary>
-    public partial class CreateRecordDialogBox : Window
+    public partial class EditRecordDialogBox : Window
     {
         private readonly DatabaseContext context;
+        private QuizContent editeditem;
 
-        public CreateRecordDialogBox(DatabaseContext dbcontext)
+        public EditRecordDialogBox(DatabaseContext dbcontext, QuizContent selecteditem)
         {
             InitializeComponent();
             this.context = dbcontext;
+            this.editeditem = selecteditem;
         }
 
-        // Beírt adatok validációja, új rekord létrehozása
+        // Beírt adatok validációja, meglévő rekord frissítése
         private void OnClick_Save(object sender, RoutedEventArgs e)
         {
             string caption = "Hiba";
             MessageBoxButton button = MessageBoxButton.OK;
             MessageBoxImage icon = MessageBoxImage.Error;
-            
+
             if (this.questionTextBox.Text == "")
             {
                 string messageBoxText = "Nem adott meg kérdést!";
@@ -48,15 +50,20 @@ namespace kviz_jatek
                 MessageBox.Show(messageBoxText, caption, button, icon);
                 return;
             }
-            QuizContent ujrekord = new QuizContent
+            var recordtoupdate = this.context.QuizContents.Find(this.editeditem.Id);
+            if (recordtoupdate != null)
             {
-                Question = this.questionTextBox.Text,
-                GoodAnswer = this.goodAnswerTextBox.Text,
-                WrongAnswer1 = this.wrongAnswer1TextBox.Text,
-                WrongAnswer2 = this.wrongAnswer2TextBox.Text
-            };
-            this.context.QuizContents.Add(ujrekord);
-            this.context.SaveChanges();
+                recordtoupdate.Question = questionTextBox.Text;
+                recordtoupdate.GoodAnswer = goodAnswerTextBox.Text;
+                recordtoupdate.WrongAnswer1 = wrongAnswer1TextBox.Text;
+                recordtoupdate.WrongAnswer2 = wrongAnswer2TextBox.Text;
+                this.context.SaveChanges();
+            } else
+            {
+                string messageBoxText = "Nem sikerült menteni a változásokat!";
+                MessageBox.Show(messageBoxText, caption, button, icon);
+            }
+            
         }
     }
 }
