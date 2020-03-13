@@ -10,13 +10,17 @@ using System.Windows.Input;
 namespace kviz_jatek
 {
     /// <summary>
-    /// Interaction logic for TopScoresWindow.xaml
+    /// TopScoresWindow.xaml
+    /// A legjobb eredméynek ablak kezelése történik itt.
+    /// Betöltődéskor kiírja a TopScores tábla összes elemét.
+    /// A legjobb eredmények törölhetők.
     /// </summary>
     public partial class TopScoresWindow : Window
     {
-        private Window mainwindow;
-        private readonly DatabaseContext context;
+        private Window mainwindow;                  // referencia a főmenü ablakához
+        private readonly DatabaseContext context;   // referencia az adatbázishoz
 
+        // Konstruktor
         public TopScoresWindow(Window mwindow, DatabaseContext datacontext)
         {
             InitializeComponent();
@@ -58,6 +62,7 @@ namespace kviz_jatek
             TopScoreListView.ItemsSource = topscorelist;
         }
 
+        // Amint aktiválódik az ablak, betöltjük az adatokat a TopScores táblából
         private void OnActivated(object sender, System.EventArgs e)
         {
             List<TopScore> topscorelist = context.TopScores.ToList();

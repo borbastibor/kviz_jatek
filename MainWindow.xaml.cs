@@ -11,7 +11,8 @@ using System.Windows.Input;
 namespace kviz_jatek
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// MainWindow.xaml
+    /// Ez a program főmenüje.
     /// </summary>
     public partial class MainWindow : Window
     {

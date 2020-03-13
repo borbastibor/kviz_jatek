@@ -5,20 +5,22 @@ using System.Windows;
 namespace kviz_jatek
 {
     /// <summary>
-    /// Interaction logic for CreateRecordDialogBox.xaml
+    /// CreateRecordDialogBox.xaml
+    /// A QuizContents tábla kiválasztott rekordjának a szerkesztése
     /// </summary>
     public partial class EditRecordDialogBox : Window
     {
-        private readonly DatabaseContext context;
-        private readonly QuizContent editeditem;
+        private readonly DatabaseContext context;   // referencia az adatbázishoz
+        private readonly QuizContent editeditem;    // a szerkesztendő rekord
 
+        // Konstruktor
         public EditRecordDialogBox(DatabaseContext dbcontext, QuizContent selecteditem)
         {
             InitializeComponent();
             context = dbcontext;
             editeditem = selecteditem;
-            questionTextBox.Text = selecteditem.Question;
-            goodAnswerTextBox.Text = selecteditem.GoodAnswer;
+            questionTextBox.Text = selecteditem.Question;           // a kiválasztott rekord adatainak a kiírása
+            goodAnswerTextBox.Text = selecteditem.GoodAnswer;       // az adott TextBox-ba
             wrongAnswer1TextBox.Text = selecteditem.WrongAnswer1;
             wrongAnswer2TextBox.Text = selecteditem.WrongAnswer2;
         }
@@ -26,10 +28,12 @@ namespace kviz_jatek
         // Beírt adatok validációja, meglévő rekord frissítése
         private void OnClick_Save(object sender, RoutedEventArgs e)
         {
+            // Hibaüzenethez a MessageBox részleges előkészítése
             string caption = "Hiba";
             MessageBoxButton button = MessageBoxButton.OK;
             MessageBoxImage icon = MessageBoxImage.Error;
 
+            // A validáció csak annyira terjed ki, hogy megnézzük nem üresek-e a TextBox-ok
             if (questionTextBox.Text == "")
             {
                 string messageBoxText = "Nem adott meg kérdést!";
@@ -54,6 +58,7 @@ namespace kviz_jatek
                 MessageBox.Show(messageBoxText, caption, button, icon);
                 return;
             }
+            // Ha idáig eljut, akkor elvileg frissíthejük a kiválasztott rekordot az adatbázisban
             QuizContent recordtoupdate = context.QuizContents.Find(editeditem.Id);
             if (recordtoupdate != null)
             {
@@ -65,6 +70,7 @@ namespace kviz_jatek
                 Close();
             } else
             {
+                // Ha nem sikerül a változásokat visszamenteni az adatbázisba, akkor hibaüzenet.
                 string messageBoxText = "Nem sikerült menteni a változásokat!";
                 MessageBox.Show(messageBoxText, caption, button, icon);
             }

@@ -1,2 +1,6 @@
 # kviz_jatek
-Informatikai projektfeladat
+<strong>Leírás</strong>
+...
+
+<strong>Forrásállományok</strong>
+

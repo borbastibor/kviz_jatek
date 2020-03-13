@@ -5,12 +5,14 @@ using System.Windows;
 namespace kviz_jatek
 {
     /// <summary>
-    /// Interaction logic for CreateRecordDialogBox.xaml
+    /// CreateRecordDialogBox.xaml
+    /// Ez az ablak kezeli az új rekordok létrehozását a QuizContents táblában.
     /// </summary>
     public partial class CreateRecordDialogBox : Window
     {
-        private readonly DatabaseContext context;
+        private readonly DatabaseContext context; // referencia az adatbázishoz
 
+        // Konstruktor
         public CreateRecordDialogBox(DatabaseContext dbcontext)
         {
             InitializeComponent();
@@ -20,10 +22,12 @@ namespace kviz_jatek
         // Beírt adatok validációja, új rekord létrehozása
         private void OnClick_Save(object sender, RoutedEventArgs e)
         {
+            // Hibaüzenethez a MessageBox részleges előkészítése
             string caption = "Hiba";
             MessageBoxButton button = MessageBoxButton.OK;
             MessageBoxImage icon = MessageBoxImage.Error;
             
+            // A validáció csak annyira terjed ki, hogy megnézzük nem üresek-e a TextBox-ok
             if (questionTextBox.Text == "")
             {
                 string messageBoxText = "Nem adott meg kérdést!";
@@ -48,6 +52,7 @@ namespace kviz_jatek
                 MessageBox.Show(messageBoxText, caption, button, icon);
                 return;
             }
+            // Ha idáig eljut, akkor elvileg minden rendben és hozzáadhatjuk az adatbázishoz
             QuizContent ujrekord = new QuizContent
             {
                 Question = questionTextBox.Text,
@@ -57,7 +62,7 @@ namespace kviz_jatek
             };
             context.QuizContents.Add(ujrekord);
             context.SaveChanges();
-            this.Close();
+            Close();
         }
     }
 }
