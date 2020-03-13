@@ -9,12 +9,12 @@ using System.Windows.Input;
 namespace kviz_jatek
 {
     /// <summary>
-    /// Interaction logic for DbManagerWindow.xaml
+    /// Ebben az ablakban lehet rekordokat létrehozni, szerkeszteni és törölni a kérdések adatbázisából.
     /// </summary>
     public partial class DbManagerWindow : Window
     {
-        private readonly Window mainwindow;
-        private readonly DatabaseContext context;
+        private readonly Window mainwindow;         // referencia a főmenühöz
+        private readonly DatabaseContext context;   // referencia az adatbázishoz
 
         public DbManagerWindow(Window mwindow, DatabaseContext datacontext)
         {
@@ -26,9 +26,9 @@ namespace kviz_jatek
         // Vissza a főmenű ablakába
         private void OnClick_BackToMenu(object sender, RoutedEventArgs e)
         {
-            Hide();
-            Thread.Sleep(150);
-            mainwindow.Show();
+            Hide();                 // Elöszőr elrejti a Quizwindow-t
+            Thread.Sleep(150);      // Vár 150ms-t
+            mainwindow.Show();      // Visszatér a főmenü ablakához
         }
 
         // Ablak mozgatása lenyomott egérgombbal

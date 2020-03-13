@@ -5,9 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:kviz_jatek"
         mc:Ignorable="d"
-        Title="QuizWindow" Height="450" Width="800" WindowStartupLocation="CenterScreen" WindowStyle="None" MouseDown="Window_MouseDown">
+        Title="QuizWindow" Height="450" Width="800" WindowStartupLocation="CenterScreen" WindowStyle="None" MouseDown="Window_MouseDown" Activated="OnActivated">
     <Grid>
         <Button Content="Vissza a menübe" HorizontalAlignment="Right" Margin="0,0,20,20" VerticalAlignment="Bottom" FontSize="14" FontWeight="Bold" Padding="5" Click="OnClick_BackToMenu"/>
+        <Button Content="Kérdéssor kiértékelése" HorizontalAlignment="Left" Margin="20,0,0,20" VerticalAlignment="Bottom" FontSize="14" FontWeight="Bold" Padding="5" Click="OnClick_GetResult"/>
+        <StackPanel Margin="20,50,20,75" RenderTransformOrigin="0.5,0.5">
+            <StackPanel.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform AngleX="-0.17"/>
+                    <RotateTransform/>
+                    <TranslateTransform X="-0.571"/>
+                </TransformGroup>
+            </StackPanel.RenderTransform>
+        </StackPanel>
+        <Label Content="Kérdéssor" FontSize="20" FontWeight="ExtraBold" HorizontalContentAlignment="Center" Margin="20,5,20,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>
