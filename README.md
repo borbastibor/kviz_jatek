@@ -1,3 +1,0 @@
-# kviz_jatek
-
-
