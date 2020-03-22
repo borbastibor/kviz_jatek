@@ -9,6 +9,7 @@ namespace kviz_jatek
     /// QuizWindow.xaml
     /// Ebben az ablakban jelennek meg az adatbázisból véletlenszerűen kiválasztott kérdések és a hozzájuk tartozó (jó-rossz)válaszok
     /// A kitöltés után a válaszok kiértékelésre kerülnek és függően a pontszámtól felkerül a játékos a legjobb pontszámok táblázatába
+    /// ide vaalmit beleírunk bala
     /// </summary>
     public partial class QuizWindow : Window
     {
