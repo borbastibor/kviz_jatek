@@ -53,7 +53,7 @@ namespace kviz_jatek
             switch (result)
             {
                 case MessageBoxResult.Yes:
-                    context.Database.ExecuteSqlRaw("DELETE FROM TopScores");
+                    context.Database.ExecuteSqlCommand("DELETE FROM TopScores");
                     break;
                 case MessageBoxResult.No:
                     break;
