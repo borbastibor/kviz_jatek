@@ -75,6 +75,21 @@ namespace kviz_jatek
             /// Ezenkívül amikor kérédésekhez tartozó wpf elemeket kiírjuk, akkor a válaszok sorrendjét össze kell keverni, mivel a QuizContents táblából az alábbi
             /// sorrendben fogja lehívni az adatokat: Id, Question, GoodAnswer, WrongAnswer1, WrongAnswer2.
             /// Itt szerintem egy egyszerű véletlenszám generálással ezt meg lehet oldani.
+            /// 
+            /// 
+            ///--------Laci----------------------------------------------------------------------------------------------------------------------------------------------------   
+            /// Esetleg egy harmadik megoldási módszer lehetne:
+            ///     A kérdéseket és válasz lehetőségeket nem egyszerre jelenítenénk meg, hanem egymás után ("Következő" gomb).
+            ///     A válasz lehetőségek nem RadioButtonnal, hanem ComboBox-ban lennének, előzetesen összekeverve.
+            ///     Így alapvetően elég lenne egy fix kialakítás a wpf elemekre, csak a tartalmukat kellene változtatni és ellenőrizni.
+            ///     Egy gomb megnyomásával lehetne a következő kérdésre menni, és az adott kérdés kiértékelése már ekkor megtörténne az alapján, hogy az aktuális kérdéshez tartozó 
+            ///     jó válasz lett-e kiválasztva a ComboBox-ban. Mivel az adatbázisból származik a kérdés és a válaszok is, egy lekérdezéssel megálapítható, hogy a jó válasz lett-e kiválasztva.
+            ///     Így nem lenne szükség egy külön kiértékelés függvényre, hanem egy ciklusban végig lehetne pörgetni a dolgot.
+            ///     Visszalépésre nem lenne lehetőség az egyszerűség kedvééért.
+            ///     Jó válaszok esetén kellene léptetni egy számlálót.
+            ///     
+            ///     Az egyszerűség kedvéért lehet egy általunk meghatározott fix számú kérdés, vagy lehet a felszanáló által választott mennyiség is, bár ez utóbbi esetben kell még egy lépés
+            ///     vagy felület, ahol ezt a számot megadja. Ennek a számnak és az összesített jó válaszok számának az aránya megadja az eredményt is.
         }
     }
 }
