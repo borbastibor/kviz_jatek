@@ -1,4 +1,9 @@
 ﻿using kviz_jatek.Data;
+using kviz_jatek.Model;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection.Emit;
 using System.Threading;
 using System.Windows;
 using System.Windows.Input;
@@ -40,7 +45,7 @@ namespace kviz_jatek
         }
 
         // Kérdéssor kiértékelése
-        private void OnClick_GetResult(object sender, RoutedEventArgs e)
+        private void OnClick_GetNext(object sender, RoutedEventArgs e)
         {
             /// Itt kellene elvégezni a kérdéssor kiértékelését. Felhasználva a kiválasztott kérdések Id-ét be lehetne olvasni a RadioButton-k állását.
             /// Viszont a jó és rossz válaszok sorrendje nem egyezik meg minden kérdésnél, mivel összekevertük őket a kiíratásnál (OnActivated függvény),
@@ -54,6 +59,17 @@ namespace kviz_jatek
         // Kérdések véletlen kiválasztása és kiírása
         private void OnActivated(object sender, System.EventArgs e)
         {
+            int osszes_kerdes = 20;             ///A kvíz során feltett kérdések száma
+            int aktualis_kerdes = 0;            ///Az eddig feltett kérdések számlálója
+            
+            List<QuizContent> questionlist = context.QuizContents.ToList();
+            int db_kerdesek_szama = questionlist.Count;         ///A kérdések darabszáma a véletlenszám generálás határaihoz
+            
+
+            Kerdes.Content = db_kerdesek_szama.ToString();
+
+
+
             /// Itt kellene, a stackpanel-be ágyazottan (StackPanel.Children), dinamikusan (kódból) létrehozott wpf elemekkel (TextBlock, RadioButton) megjeleníteni a kérdéseket
             /// és a hozzájuk tartozó válaszokat. Az új wpf elemek létrehozásánál mindenképp jelezni kell majd, hogy melyik kérédshez tartozik.
             /// Ezt a QuizContents táblából kiolvasott rekordok Id-vel lehetne megoldani, úgy hogy az adott wpf elem name vagy egyéb property-ének az Id-t adjuk értékül.
