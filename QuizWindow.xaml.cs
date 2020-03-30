@@ -7,6 +7,7 @@ using System.Reflection.Emit;
 using System.Threading;
 using System.Windows;
 using System.Windows.Input;
+using System;
 
 namespace kviz_jatek
 {
@@ -22,12 +23,20 @@ namespace kviz_jatek
         private readonly Window mainwindow;         // referencia a főmenühöz
         private readonly DatabaseContext context;   // referencia az adatbázis eléréséhez
 
+        int db_kerdesek_szama = 0;                 ///Az összes kérdés száma a későbbiekben az adatbázisból lekérdezve
+        int osszes_feltett_kerdes = 20;            ///A kvíz során feltett kérdések száma
+        int eddigi_kerdesek_szama = 1;            ///Az eddig feltett kérdések számlálója
+        Random veletlen_szam = new Random();
+        List<int> eddigiek = new List<int>();
+
         // Konstruktor
         public QuizWindow(Window mwindow, DatabaseContext datacontext)
         {
             InitializeComponent();
             mainwindow = mwindow;
             context = datacontext;
+
+            
         }
 
         // Vissza a főmenű ablakába
@@ -47,6 +56,20 @@ namespace kviz_jatek
         // Kérdéssor kiértékelése
         private void OnClick_GetNext(object sender, RoutedEventArgs e)
         {
+            int i;
+            List<QuizContent> questionlist = context.QuizContents.ToList();
+            db_kerdesek_szama = questionlist.Count;         ///A kérdések darabszáma a véletlenszám generálás határaihoz
+
+            do
+            {
+                i = veletlen_szam.Next(0, db_kerdesek_szama);
+            }
+            while (eddigiek.Contains(i));
+
+            eddigiek.Add(i);
+
+            Kerdes.Content = questionlist[i].Question;
+
             /// Itt kellene elvégezni a kérdéssor kiértékelését. Felhasználva a kiválasztott kérdések Id-ét be lehetne olvasni a RadioButton-k állását.
             /// Viszont a jó és rossz válaszok sorrendje nem egyezik meg minden kérdésnél, mivel összekevertük őket a kiíratásnál (OnActivated függvény),
             /// ezért kell valamilyen megoldás, amivel megkülönböztethetjük őket. Egy lehetséges megoldás, hogy az Id alapján összehasonlítjuk az adott
@@ -59,15 +82,13 @@ namespace kviz_jatek
         // Kérdések véletlen kiválasztása és kiírása
         private void OnActivated(object sender, System.EventArgs e)
         {
-            int osszes_kerdes = 20;             ///A kvíz során feltett kérdések száma
-            int aktualis_kerdes = 0;            ///Az eddig feltett kérdések számlálója
-            
             List<QuizContent> questionlist = context.QuizContents.ToList();
-            int db_kerdesek_szama = questionlist.Count;         ///A kérdések darabszáma a véletlenszám generálás határaihoz
+            db_kerdesek_szama = questionlist.Count;         ///A kérdések darabszáma a véletlenszám generálás határaihoz
+
+            int i = veletlen_szam.Next(0, db_kerdesek_szama);
+            eddigiek.Add(i);
+            Kerdes.Content = questionlist[i].Question;
             
-
-            Kerdes.Content = db_kerdesek_szama.ToString();
-
 
 
             /// Itt kellene, a stackpanel-be ágyazottan (StackPanel.Children), dinamikusan (kódból) létrehozott wpf elemekkel (TextBlock, RadioButton) megjeleníteni a kérdéseket
