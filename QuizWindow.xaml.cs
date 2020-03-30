@@ -24,10 +24,10 @@ namespace kviz_jatek
         private readonly DatabaseContext context;   // referencia az adatbázis eléréséhez
 
         int db_kerdesek_szama = 0;                 ///Az összes kérdés száma a későbbiekben az adatbázisból lekérdezve
-        int osszes_feltett_kerdes = 20;            ///A kvíz során feltett kérdések száma
-        int eddigi_kerdesek_szama = 1;            ///Az eddig feltett kérdések számlálója
+        int osszes_feltett_kerdes = 10;            ///A kvíz során feltett kérdések száma         
         Random veletlen_szam = new Random();
-        List<int> eddigiek = new List<int>();
+        List<int> eddigiek = new List<int>();      ///Az eddig feltett kérdések számlálója
+        int jo_valaszok_szama = 0;                 ///A jó válaszok számlálója
 
         // Konstruktor
         public QuizWindow(Window mwindow, DatabaseContext datacontext)
@@ -60,15 +60,79 @@ namespace kviz_jatek
             List<QuizContent> questionlist = context.QuizContents.ToList();
             db_kerdesek_szama = questionlist.Count;         ///A kérdések darabszáma a véletlenszám generálás határaihoz
 
-            do
+            if(eddigiek.Count == 0)
             {
-                i = veletlen_szam.Next(0, db_kerdesek_szama);
+                jo_valaszok_szama = 0;
             }
-            while (eddigiek.Contains(i));
 
-            eddigiek.Add(i);
+            if(eddigiek.Count != osszes_feltett_kerdes)
+            {
+                if (eddigiek.Count>0)
+                {
+                    int valasz = eddigiek[eddigiek.Count - 1];
+                    if (valasz%3 == 0 && Valaszok.SelectedItem==Valasz0)
+                    {
+                        jo_valaszok_szama += 1;
+                    }
+                    else if (valasz % 3 == 1 && Valaszok.SelectedItem == Valasz1)
+                    {
+                        jo_valaszok_szama += 1;
+                    }
+                    else if (valasz % 3 == 2 && Valaszok.SelectedItem == Valasz2)
+                    {
+                        jo_valaszok_szama += 1;
+                    }
+                }
+                do
+                {
+                    i = veletlen_szam.Next(0, db_kerdesek_szama);
+                }
+                while (eddigiek.Contains(i));
 
-            Kerdes.Content = questionlist[i].Question;
+                eddigiek.Add(i);
+
+                Kovetkezo.Content = "Következő";
+                Valaszok.Visibility = Visibility.Visible;
+                Valaszok.SelectedValue = "none";
+                Kerdes.Text = questionlist[i].Question;
+
+                ///A jó válasz helye attól függ, hogy a véletlenszám 3-mal osztva mennyit ad maradékul
+                ///Nem a legelegánsabb, de egyszerűbben kezelhető
+                if (i % 3 == 0)
+                {
+                    Valasz0.Content = questionlist[i].GoodAnswer;
+                    Valasz1.Content = questionlist[i].WrongAnswer1;
+                    Valasz2.Content = questionlist[i].WrongAnswer2;
+                }
+                else if (i % 3 == 1)
+                {
+                    Valasz0.Content = questionlist[i].WrongAnswer1;
+                    Valasz1.Content = questionlist[i].GoodAnswer;
+                    Valasz2.Content = questionlist[i].WrongAnswer2;
+                }
+                else
+                {
+                    Valasz0.Content = questionlist[i].WrongAnswer1;
+                    Valasz1.Content = questionlist[i].WrongAnswer2;
+                    Valasz2.Content = questionlist[i].GoodAnswer;
+                }
+
+            }
+            else
+            {
+                Kovetkezo.Visibility = Visibility.Collapsed;
+                Valaszok.Visibility = Visibility.Collapsed;
+                Kerdes.Text = "Eredmény: " + jo_valaszok_szama + "/" + osszes_feltett_kerdes + " = " + 100*jo_valaszok_szama/osszes_feltett_kerdes + "%";
+                
+                ///80%-nál jobb eredmény rögzíthető
+                if (jo_valaszok_szama/osszes_feltett_kerdes > 0.8)
+                {
+                    Rogzites_Cimke.Visibility = Visibility.Visible;
+                    Nev.Visibility = Visibility.Visible;
+                    Rogzites.Visibility = Visibility.Visible;
+                }
+            }
+            
 
             /// Itt kellene elvégezni a kérdéssor kiértékelését. Felhasználva a kiválasztott kérdések Id-ét be lehetne olvasni a RadioButton-k állását.
             /// Viszont a jó és rossz válaszok sorrendje nem egyezik meg minden kérdésnél, mivel összekevertük őket a kiíratásnál (OnActivated függvény),
@@ -82,13 +146,20 @@ namespace kviz_jatek
         // Kérdések véletlen kiválasztása és kiírása
         private void OnActivated(object sender, System.EventArgs e)
         {
-            List<QuizContent> questionlist = context.QuizContents.ToList();
-            db_kerdesek_szama = questionlist.Count;         ///A kérdések darabszáma a véletlenszám generálás határaihoz
+            /*   List<QuizContent> questionlist = context.QuizContents.ToList();
+               db_kerdesek_szama = questionlist.Count;         ///A kérdések darabszáma a véletlenszám generálás határaihoz
 
-            int i = veletlen_szam.Next(0, db_kerdesek_szama);
-            eddigiek.Add(i);
-            Kerdes.Content = questionlist[i].Question;
-            
+               int i = veletlen_szam.Next(0, db_kerdesek_szama);
+               eddigiek.Add(i);
+               Kerdes.Content = questionlist[i].Question;
+              */
+
+            eddigiek.Clear();
+            //jo_valaszok_szama = 0;
+            Kovetkezo.Content = "Indítás";
+            Kovetkezo.Visibility = Visibility.Visible;
+            Valaszok.Visibility = Visibility.Collapsed;
+            Kerdes.Text = "A quiz indításához kattins az Indításra!";
 
 
             /// Itt kellene, a stackpanel-be ágyazottan (StackPanel.Children), dinamikusan (kódból) létrehozott wpf elemekkel (TextBlock, RadioButton) megjeleníteni a kérdéseket
@@ -127,6 +198,11 @@ namespace kviz_jatek
             ///     
             ///     Az egyszerűség kedvéért lehet egy általunk meghatározott fix számú kérdés, vagy lehet a felszanáló által választott mennyiség is, bár ez utóbbi esetben kell még egy lépés
             ///     vagy felület, ahol ezt a számot megadja. Ennek a számnak és az összesített jó válaszok számának az aránya megadja az eredményt is.
+        }
+
+        private void OnClick_Rogzites(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

@@ -8,15 +8,20 @@
         Title="QuizWindow" Height="450" Width="800" WindowStartupLocation="CenterScreen" WindowStyle="None" MouseDown="Window_MouseDown" Activated="OnActivated">
     <Grid>
         <Button Content="Vissza a menübe" HorizontalAlignment="Right" Margin="0,0,20,20" VerticalAlignment="Bottom" FontSize="14" FontWeight="Bold" Padding="5" Click="OnClick_BackToMenu"/>
-        <Button Content="Következő" HorizontalAlignment="Left" Margin="20,0,0,20" VerticalAlignment="Bottom" FontSize="14" FontWeight="Bold" Padding="5" Click="OnClick_GetNext"/>
+        <Button Name="Kovetkezo" Content="Következő" HorizontalAlignment="Left" Margin="20,0,0,20" VerticalAlignment="Bottom" FontSize="14" FontWeight="Bold" Padding="5" Click="OnClick_GetNext"/>
         <StackPanel Margin="20,50,20,75" RenderTransformOrigin="0.5,0.5">
-			<Label Name="Kerdes" Content="Kérdés" FontSize="20" FontWeight="Bold" HorizontalContentAlignment="Left" Margin="20,5,20,0" VerticalAlignment="Top"/>
-			<ListBox Width="200" HorizontalAlignment="Left" >
-				<ListBoxItem Content="Passz" FontSize="14" FontWeight="Normal" HorizontalContentAlignment="Left" Margin="20,5,20,0" VerticalAlignment="Top"/>
-				<ListBoxItem Content="Válasz_1" FontSize="14" FontWeight="Normal" HorizontalContentAlignment="Left" Margin="20,5,20,0" VerticalAlignment="Top"/>
-				<ListBoxItem Content="Válasz_2" FontSize="14" FontWeight="Normal" HorizontalContentAlignment="Left" Margin="20,5,20,0" VerticalAlignment="Top"/>
-				<ListBoxItem Content="Válasz_3" FontSize="14" FontWeight="Normal" HorizontalContentAlignment="Left" Margin="20,5,20,0" VerticalAlignment="Top"/>
+            <TextBlock Name="Kerdes" TextWrapping="WrapWithOverflow" FontSize="20" FontWeight="Bold" Margin="20,5,20,0" Height="71">
+                Kérdés
+            </TextBlock>
+            <ListBox Name="Valaszok" Width="200" HorizontalAlignment="Left" >
+                <ListBoxItem Name="Passz" Content="Passz..." FontSize="14" FontWeight="Normal" HorizontalContentAlignment="Left" Margin="20,5,20,0" VerticalAlignment="Top"/>
+                <ListBoxItem Name="Valasz0" Content="Válasz_1" FontSize="14" FontWeight="Normal" HorizontalContentAlignment="Left" Margin="20,5,20,0" VerticalAlignment="Top"/>
+                <ListBoxItem Name="Valasz1" Content="Válasz_2" FontSize="14" FontWeight="Normal" HorizontalContentAlignment="Left" Margin="20,5,20,0" VerticalAlignment="Top"/>
+                <ListBoxItem Name="Valasz2" Content="Válasz_3" FontSize="14" FontWeight="Normal" HorizontalContentAlignment="Left" Margin="20,5,20,0" VerticalAlignment="Top"/>
 			</ListBox>
+            <Label Name="Rogzites_Cimke" Content="Az eredményed rögzíthető. Add meg a neved:" FontSize="20" FontWeight="ExtraBold" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Margin="20,5,20,0" Width="486" Visibility="Hidden"/>
+            <TextBox Name="Nev" Margin="20,0,20,0" Grid.Row="3" Grid.ColumnSpan="2" Padding="5,5,5,5" HorizontalAlignment="Center" VerticalContentAlignment="Center" Width="277" Visibility="Hidden"/>
+            <Button Name="Rogzites" Content="Rögzítés" HorizontalAlignment="Center" Margin="20,0,0,20" VerticalAlignment="Bottom" FontSize="14" FontWeight="Bold" Padding="5" Click="OnClick_Rogzites" Visibility="Hidden"/>
 			<StackPanel.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
